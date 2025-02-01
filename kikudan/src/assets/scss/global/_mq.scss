@@ -1,0 +1,37 @@
+$breakpoints: (
+  "sm": 479,
+  "md": 767,
+  "lg": 1023,
+  "xl": 1230,
+  "xxl": 2000,
+) !default;
+
+@mixin mq($mq, $bp1: lg, $bp2: lg) {
+  $w1: map-get($breakpoints, $bp1);
+  $w2: map-get($breakpoints, $bp2);
+
+  /* 出力する文字列の設定 */
+  $min1: "min-width: #{ ($w1+1) }px";
+  $max1: "max-width: #{ ($w1)   }px";
+  $min2: "min-width: #{ ($w1+1) }px";
+  $max2: "max-width: #{ ($w2)   }px";
+
+  /* 内容によって書き出す内容を条件分岐する */
+  @if $mq ==min {
+    /* もし第一引数が`min`だったら */
+    @media screen and ($min1) {
+      @content;
+      /* @includeしたとき、他のブロックと同様に中括弧を使用して渡されます */
+    }
+  } @else if $mq ==max {
+    /* もし第一引数が`max`だったら */
+    @media screen and ($max1) {
+      @content;
+    }
+  } @else if $mq ==min-max {
+    /* もし第一引数が`min-max`だったら */
+    @media screen and ($min2) and ($max2) {
+      @content;
+    }
+  }
+}
