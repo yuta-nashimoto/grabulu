@@ -1,0 +1,119 @@
+---
+
+---
+
+<div id="information" class="information overlapTop">
+  <div class="informationWrapper">
+    <h3 class="informationTitle">当団のルール</h3>
+    <p class="informationText">
+      入団していただく上で必ず守っていただきたいルールになります。<br>
+      必ずご一読の上、Discordに参加をお願いいたします。
+    </p>
+    <ol class="informationList">
+      <li class="informationListItem">
+        <span class="main">Discordの導入必須</span>
+      </li>
+      <li class="informationListItem">
+        <span class="main">成人済の社会人であること</span>
+      </li>
+      <li class="informationListItem">
+        <span class="main">古戦場ノルマは累計貢献度２億のみ</span>
+        <span class="annotation">
+          リアル最優先で事前連絡さえ頂ければノルマを未達成でも不問としてます！<br>※初心者の方は安定するまではノルマ無しでゆっくりグラブルに慣れていきましょう♪
+        </span>
+      </li>
+      <li class="informationListItem important">
+        <span class="main">古戦場ノルマは累計貢献度２億のみ</span>
+        <span class="annotation">
+          リアル多忙等いろいろあるかと思いますので事前に事情ご連絡いただければ<br>
+          不参加期間が多少空いても問題ありません！
+        </span>
+      </li>
+      <li class="informationListItem">
+        <span class="main">ギスブルにはならぬ様にみんな仲良く！(大事)</span>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<style lang="scss">
+.information {
+  background: g.$white;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 40px;
+  padding: 40px 52px 61px;
+  box-shadow: 0 4px 36px rgba(0,0,0,.25);
+  &.overlapTop {
+    margin-top: -186px;
+  }
+  &.overlapBottom {
+    margin-top: 84px;
+  }
+
+  & .informationWrapper {
+
+  }
+
+	 & .informationTitle {
+			position: relative;
+			font-size: 4rem;
+			text-align: center;
+			padding-bottom: 70px;
+			&::before {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				transform: translateX(-50%);
+				background: #929BC5;
+				width: 4px;
+				height: 59px;
+			}
+	 }
+
+	 & .informationText {
+			font-size: 2.4rem;
+			text-align: center;
+			margin-top: 20px;
+	 }
+
+	 & .informationList {
+			max-width: 642px;
+			margin: 0 auto;
+			margin-top: 52px;
+			& .informationListItem {
+				font-size: 2rem;
+				&:not(:first-child) {
+					margin-top: 24px;
+				}
+
+				&.important {
+					position: relative;
+					padding-top: 40px;
+					&::before {
+						content: '最重要';
+						position: absolute;
+						left: 0;
+						top: 0;
+						font-size: 2.5rem;
+						color: g.$white;
+						background: g.$alert;
+						padding: 2px 8px;
+					}
+				}
+
+				& .main {
+					display: block;
+					font-size: 2rem;
+				}
+
+				& .annotation {
+					color: g.$annotation;
+					display: block;
+					font-size: 1.6rem;
+				}
+			}
+	 }
+}
+</style>

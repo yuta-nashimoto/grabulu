@@ -1,29 +1,52 @@
-
+---
+const { member } = Astro.props;
+---
 <div class="card">
-  <p class="heading">
-    Popular this month
-  </p>
-  <p>
-    Powered By
-  </p>
-  <p>Uiverse</p>
+  <div class="post">{member.post.name}</div>
+  <div class="heading">
+    {member.thumb && <img src={member.thumb.url} alt="" class="thumb" />}
+    {!member.thumb && <img src="/assets/images/person.png" alt="" class="thumb" />}
+    <p class="name">{member.name}</p>
+  </div>
+  <div class="body">
+    <dl class="bodyDifinition">
+      <dt>グラブルネーム</dt>
+      <dd>{member.guraburu_name}</dd>
+    </dl>
+    <dl class="bodyDifinition">
+      <dt>役職</dt>
+      <dd>{member.guraburu_post.name}</dd>
+    </dl>
+    <dl class="bodyDifinition">
+      <dt>ディスコネーム</dt>
+      <dd>{member.discord_name}</dd>
+    </dl>
+  </div>
 </div>
 
 <style lang="scss">
+@use '../assets/scss/global/index.scss' as g;
 .card {
   position: relative;
-  width: 190px;
-  height: 254px;
+  width: calc((100% - 168px) / 3);
   background-color: #000;
   display: flex;
   flex-direction: column;
   justify-content: end;
-  padding: 12px;
+  padding: 23px 35px;
   gap: 12px;
   border-radius: 8px;
   cursor: pointer;
   color: white;
+
+  &:not(:nth-child(-n+3)) {
+    margin-top: 68px;
+  }
+  &:not(:nth-child(3n+1)) {
+    margin-left: 68px;
+  }
 }
+
 
 .card::before {
   content: '';
@@ -31,8 +54,8 @@
   inset: 0;
   left: -5px;
   margin: auto;
-  width: 200px;
-  height: 264px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
   border-radius: 10px;
   background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
   z-index: -10;
@@ -45,24 +68,11 @@
   z-index: -1;
   position: absolute;
   inset: 0;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
   background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
   transform: translate3d(0, 0, 0) scale(0.95);
   filter: blur(20px);
-}
-
-.heading {
-  font-size: 20px;
-  text-transform: capitalize;
-  font-weight: 700;
-}
-
-.card p:not(.heading) {
-  font-size: 14px;
-}
-
-.card p:last-child {
-  color: #e81cff;
-  font-weight: 600;
 }
 
 .card:hover::after {
@@ -70,8 +80,52 @@
 }
 
 .card:hover::before {
-  transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+  transform: rotate(-90deg);
 }
 
+.post {
+  color: g.$white;
+  font-size: 3.2rem;
+  text-align: center;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  padding-left: 20px;
+  & .thumb{
+    width: 90px;
+    border-radius: 50%;
+  }
+
+  & .name {
+    color: g.$white;
+    font-size: 2.8rem;
+    margin-left: 18px;
+  }
+}
+
+.body {
+  margin-top: 43;
+  & .bodyDifinition {
+    color: g.$white;
+    display: flex;
+    font-size: 1.6rem;
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
+    dt {
+      width: 112px;
+      flex-shrink: 0;
+    }
+
+    dd {
+      margin-left: 27px;
+    }
+  }
+}
 
 </style>

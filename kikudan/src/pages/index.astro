@@ -1,8 +1,311 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Sheet from '../components/Sheet.astro';
+import MemberList from '../components/MemberList.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import { siteMeta } from "../constants/";
+import { getMembers } from '../library/microcms';
+const BoardMember = await getMembers({filters: 'board_flg[equals]true',});
+const Member = await getMembers({filters: 'board_flg[equals]false', limit: 30});
 ---
 
-<Layout>
-	<Card />
+<Layout pageTitle={siteMeta.title}>
+	<!-- メインビジュアル -->
+	<section id="mainVisual" class="mainVisual">
+		<div class="mainVisualCircle">
+			<img src="/public/assets/images/magic-circle-outer.svg" alt="" class="outer"/>
+			<img src="/public/assets/images/magic-circle-inner1.svg" alt="" class="inner1"/>
+			<img src="/public/assets/images/magic-circle-inner2.svg" alt="" class="inner2"/>
+			<img src="/public/assets/images/magic-circle-inner3.svg" alt="" class="inner3"/>
+		</div>
+		<h1 class="mainVisualTitle">
+			<span>HIDARIUCHI&nbsp;NI</span><span>MODOSITE&nbsp;KUDASAI</span>
+		</h1>
+	</section>
+
+	<!-- スローガン&フォーム -->
+	<section id="slogan" class="slogan">
+		<SectionTitle position="left" title="SLOGAN" />
+		<Sheet size="1450">
+			<h3 class="sloganTitle">ボイチャ(テキチャ)でみんなでワイワイ楽しく遊ぼう！</h3>
+			<p class="sloganLead">
+				当団はディスコードでの交流に重きを置いた団で<br>
+				毎日何かしらのネタでボイスチャットに集まって<br>
+				雑談やグラブル以外のゲームなどもワイワイやっています
+			</p>
+		</Sheet>
+	</section>
+
+	<div id="information" class="information overlapTop">
+		<div class="informationWrapper">
+			<h3 class="informationTitle">当団のルール</h3>
+			<p class="informationText">
+				入団していただく上で必ず守っていただきたいルールになります。<br>
+				必ずご一読の上、Discordに参加をお願いいたします。
+			</p>
+			<ol class="informationList">
+				<li class="informationListItem">
+					<span class="main">Discordの導入必須</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">成人済の社会人であること</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">古戦場ノルマは累計貢献度２億のみ</span>
+					<span class="annotation">
+						リアル最優先で事前連絡さえ頂ければノルマを未達成でも不問としてます！<br>※初心者の方は安定するまではノルマ無しでゆっくりグラブルに慣れていきましょう♪
+					</span>
+				</li>
+				<li class="informationListItem important">
+					<span class="main">古戦場ノルマは累計貢献度２億のみ</span>
+					<span class="annotation">
+						リアル多忙等いろいろあるかと思いますので事前に事情ご連絡いただければ<br>
+						不参加期間が多少空いても問題ありません！
+					</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">ギスブルにはならぬ様にみんな仲良く！(大事)</span>
+				</li>
+			</ol>
+		</div>
+	</div>
+
+	<div id="information" class="information overlapBottom">
+		<div class="informationWrapper">
+			<h3 class="informationTitle">退団条件</h3>
+			<ol class="informationList">
+				<li class="informationListItem">
+					<span class="main">報連相をしない方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">コミュニケーション能力が著しく低いと団長副団長に判断された方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">グラブルログイン日数が未報告状態で1週間経過した方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">ボイチャにおいて距離感がバグってる方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">VCに著しく来ない方(未連絡一週間経過～)</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">団長副団長のルールノルマなど方針に従っていただけない方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">団内恋愛した方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">他SNSに団の愚痴などを記載した方</span>
+				</li>
+				<li class="informationListItem">
+					<span class="main">その他団長副団長判断で除名と判断された方</span>
+				</li>
+			</ol>
+		</div>
+	</div>
+
+	<!-- 管理メンバーリスト -->
+	<section id="boardMember" class="boardMember">
+		<SectionTitle position="right" title="BOARD&nbsp;MEMBER" />
+		<Sheet size="1450" >
+			<MemberList members={BoardMember.contents}/>
+		</Sheet>
+	</section>
+
+	<!-- メンバーリスト -->
+	<section id="member" class="member">
+		<SectionTitle position="left" title="MEMBER" />
+		<Sheet size="1450" >
+			<MemberList members={Member.contents}/>
+		</Sheet>
+	</section>
 </Layout>
+
+<script>
+window.onload = () => {
+	const innerHeight = window.innerHeight;
+	const visual = document.getElementById("mainVisual");
+	if (visual) visual.style.height = `${innerHeight - 20}px`;
+}
+</script>
+
+<style lang="scss">
+@use '../assets/scss/global/index.scss' as g;
+
+.mainVisual {
+	display: flex;
+	align-items: center;
+	position: relative;
+	background: g.$bg;
+	border-radius: 40px;
+	z-index: -20;
+	overflow: hidden;
+
+	& .mainVisualCircle {
+		position: absolute;
+		right: 0;
+		width: 71vw;
+		height: 71vw;
+		& > img {
+			position: absolute;
+			top: 50%;
+			height: auto;
+			transform: translateY(-50%);
+			&.outer {
+				width: 1600px;
+			}
+			&.inner1 {
+				width: 1252px;
+				left: 240px;
+			}
+			&.inner2 {
+				width: 1252px;
+				left: 110px;
+			}
+			&.inner3 { 
+				width: 1094px;
+				left: 254px;
+			}
+		}
+	}
+
+	& .mainVisualTitle {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		color: g.$white;
+		font-family: "Chakra Petch", serif;
+		font-size: 12rem;
+		text-shadow: 0 4px 10px rgba(0, 0, 0, .4);
+		padding-left: 60px;
+		z-index: 1;
+		& > span {
+			line-height: 1;
+			letter-spacing: -0.05em;
+			&:last-child {
+				margin-top: -30px;
+			}
+		}
+	}
+}
+
+.slogan {
+	position: relative;
+	background: g.$bg;
+	margin-top: 260px;
+	padding-top: 132px;
+	padding-bottom: 264px;
+	border-radius: 40px;
+	z-index: -20;
+
+	& .sloganTitle {
+		color: g.$white;
+		font-size: 5rem;
+		text-align: center;
+	}
+	& .sloganLead {
+		color: g.$white;
+		font-size: 3.2rem;
+		text-align: center;
+		margin-top: 46px;
+		line-height: 1.5em;
+	}
+}
+
+.information {
+		background: g.$white;
+		max-width: 900px;
+		margin: 0 auto;
+		border-radius: 40px;
+		padding: 40px 52px 61px;
+		box-shadow: 0 4px 36px rgba(0,0,0,.25);
+		&.overlapTop {
+			margin-top: -186px;
+		}
+		&.overlapBottom {
+			margin-top: 84px;
+		}
+
+	 & .informationWrapper {
+		
+	}
+
+	 & .informationTitle {
+			position: relative;
+			font-size: 4rem;
+			text-align: center;
+			padding-bottom: 70px;
+			&::before {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				transform: translateX(-50%);
+				background: #929BC5;
+				width: 4px;
+				height: 59px;
+			}
+	 }
+
+	 & .informationText {
+			font-size: 2.4rem;
+			text-align: center;
+			margin-top: 20px;
+	 }
+
+	 & .informationList {
+			max-width: 642px;
+			margin: 0 auto;
+			margin-top: 52px;
+			& .informationListItem {
+				font-size: 2rem;
+				&:not(:first-child) {
+					margin-top: 24px;
+				}
+
+				&.important {
+					position: relative;
+					padding-top: 40px;
+					&::before {
+						content: '最重要';
+						position: absolute;
+						left: 0;
+						top: 0;
+						font-size: 2.5rem;
+						color: g.$white;
+						background: g.$alert;
+						padding: 2px 8px;
+					}
+				}
+
+				& .main {
+					display: block;
+					font-size: 2rem;
+				}
+
+				& .annotation {
+					color: g.$annotation;
+					display: block;
+					font-size: 1.6rem;
+				}
+			}
+	 }
+}
+.boardMember,.member {
+	position: relative;
+	background: g.$bg;
+	padding-top: 132px;
+	padding-bottom: 110px;
+	border-radius: 40px;
+	z-index: -20;
+}
+
+.boardMember {
+	margin-top: 196px;
+}
+
+.member {
+ margin-top: 156px;
+}
+</style>

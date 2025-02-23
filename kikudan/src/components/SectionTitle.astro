@@ -1,0 +1,30 @@
+---
+const { title, position } = Astro.props;
+---
+
+<div class:list={["sectionTitleWrap", {"positionRight": position === "right", "positionLeft": position === "left"}]}>
+  <h2 class="sectionTitle">{title}</h2>
+</div>
+
+
+<style lang="scss">
+@use '../assets/scss/global/index.scss' as g;
+
+.sectionTitleWrap {
+	position: absolute;
+	top: -88px;
+  &.positionLeft {
+    left: 41px;
+  }
+
+  &.positionRight {
+    right: 41px;
+  }
+}
+.sectionTitle {
+	color: g.$white;
+	font-family: "Chakra Petch", serif;;
+	font-size: 12rem;
+	text-shadow: 0 4px 10px rgba(0, 0, 0, .4);
+}
+</style>

@@ -1,0 +1,18 @@
+---
+import Card from "./Card.astro";
+const {members} = Astro.props;
+import type { Member } from "../library/microcms"
+---
+
+<ul class="memberList">
+  {members.map((member: Member) => {
+    return <Card member={member} />
+  })}
+</ul>
+
+<style lang="scss">
+.memberList {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
